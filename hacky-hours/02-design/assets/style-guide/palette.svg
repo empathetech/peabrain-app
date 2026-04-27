@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <style>
+    .title { font-size: 18px; font-weight: 700; }
+    .group { font-size: 13px; font-weight: 600; fill: #6B645A; text-transform: uppercase; letter-spacing: 1px; }
+    .name  { font-size: 12px; font-weight: 600; }
+    .hex   { font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace; font-size: 11px; fill: #6B645A; }
+    .lightLabel { fill: #2A2823; }
+    .darkLabel  { fill: #F4EEE3; }
+    .panel-light { fill: #FBF7F1; stroke: #D9D2C4; }
+    .panel-dark  { fill: #1F1D19; stroke: #3D3A33; }
+  </style>
+
+  <rect width="800" height="580" fill="#FBF7F1"/>
+  <text x="24" y="34" class="title" fill="#2A2823">peabrain — color palette (starting values)</text>
+  <text x="24" y="54" font-size="12" fill="#6B645A">Hex values are proposals. Iterate during build. All swatches must meet WCAG AA contrast in their intended pairing.</text>
+
+  <!-- Brand colors -->
+  <text x="24" y="90" class="group">Brand</text>
+  <g transform="translate(24,100)">
+    <rect width="120" height="80" rx="8" fill="#3F7D44"/>
+    <text x="60" y="100" class="name" text-anchor="middle">Garden green</text>
+    <text x="60" y="116" class="hex" text-anchor="middle">#3F7D44</text>
+
+    <rect x="136" width="120" height="80" rx="8" fill="#B8643A"/>
+    <text x="196" y="100" class="name" text-anchor="middle">Terracotta</text>
+    <text x="196" y="116" class="hex" text-anchor="middle">#B8643A</text>
+
+    <rect x="272" width="120" height="80" rx="8" fill="#E8B23E"/>
+    <text x="332" y="100" class="name" text-anchor="middle">Sun yellow</text>
+    <text x="332" y="116" class="hex" text-anchor="middle">#E8B23E</text>
+
+    <rect x="408" width="120" height="80" rx="8" fill="#7FA3B5"/>
+    <text x="468" y="100" class="name" text-anchor="middle">Sky blue-gray</text>
+    <text x="468" y="116" class="hex" text-anchor="middle">#7FA3B5</text>
+
+    <rect x="544" width="120" height="80" rx="8" fill="#5C3A21"/>
+    <text x="604" y="100" class="name" text-anchor="middle" fill="#FBF7F1">Soil deep</text>
+    <text x="604" y="116" class="hex" text-anchor="middle">#5C3A21</text>
+
+    <rect x="680" width="96" height="80" rx="8" fill="#8FBA8C"/>
+    <text x="728" y="100" class="name" text-anchor="middle">Foliage soft</text>
+    <text x="728" y="116" class="hex" text-anchor="middle">#8FBA8C</text>
+  </g>
+
+  <!-- Status colors -->
+  <text x="24" y="240" class="group">Status</text>
+  <g transform="translate(24,250)">
+    <rect width="148" height="64" rx="8" fill="#3F7D44"/>
+    <text x="74" y="84" class="name" text-anchor="middle">Great / success</text>
+    <text x="74" y="100" class="hex" text-anchor="middle">#3F7D44</text>
+
+    <rect x="160" width="148" height="64" rx="8" fill="#C68A3F"/>
+    <text x="234" y="84" class="name" text-anchor="middle">Decent / info</text>
+    <text x="234" y="100" class="hex" text-anchor="middle">#C68A3F</text>
+
+    <rect x="320" width="148" height="64" rx="8" fill="#D67635"/>
+    <text x="394" y="84" class="name" text-anchor="middle">Stretch / warning</text>
+    <text x="394" y="100" class="hex" text-anchor="middle">#D67635</text>
+
+    <rect x="480" width="148" height="64" rx="8" fill="#B0463C"/>
+    <text x="554" y="84" class="name" text-anchor="middle">Impossible / blocked</text>
+    <text x="554" y="100" class="hex" text-anchor="middle">#B0463C</text>
+
+    <rect x="640" width="136" height="64" rx="8" fill="#E8B23E"/>
+    <text x="708" y="84" class="name" text-anchor="middle">Harvest nudge</text>
+    <text x="708" y="100" class="hex" text-anchor="middle">#E8B23E</text>
+  </g>
+
+  <!-- Light mode neutrals -->
+  <text x="24" y="380" class="group">Light mode neutrals</text>
+  <g transform="translate(24,390)">
+    <rect width="700" height="120" rx="10" class="panel-light" stroke-width="1"/>
+    <rect x="16" y="16" width="80" height="40" rx="4" fill="#FBF7F1" stroke="#D9D2C4"/>
+    <text x="56" y="76" class="name lightLabel" text-anchor="middle">Background</text>
+    <text x="56" y="92" class="hex" text-anchor="middle">#FBF7F1</text>
+
+    <rect x="120" y="16" width="80" height="40" rx="4" fill="#F4EEE3" stroke="#D9D2C4"/>
+    <text x="160" y="76" class="name lightLabel" text-anchor="middle">Surface</text>
+    <text x="160" y="92" class="hex" text-anchor="middle">#F4EEE3</text>
+
+    <rect x="224" y="16" width="80" height="40" rx="4" fill="#2A2823"/>
+    <text x="264" y="76" class="name lightLabel" text-anchor="middle">Text-strong</text>
+    <text x="264" y="92" class="hex" text-anchor="middle">#2A2823</text>
+
+    <rect x="328" y="16" width="80" height="40" rx="4" fill="#6B645A"/>
+    <text x="368" y="76" class="name lightLabel" text-anchor="middle">Text-muted</text>
+    <text x="368" y="92" class="hex" text-anchor="middle">#6B645A</text>
+
+    <rect x="432" y="16" width="80" height="40" rx="4" fill="#D9D2C4"/>
+    <text x="472" y="76" class="name lightLabel" text-anchor="middle">Border</text>
+    <text x="472" y="92" class="hex" text-anchor="middle">#D9D2C4</text>
+  </g>
+
+  <!-- Dark mode neutrals -->
+  <g transform="translate(24,450)">
+    <rect width="700" height="120" rx="10" class="panel-dark" stroke-width="1"/>
+    <rect x="16" y="16" width="80" height="40" rx="4" fill="#1F1D19" stroke="#3D3A33"/>
+    <text x="56" y="76" class="name darkLabel" text-anchor="middle">Background</text>
+    <text x="56" y="92" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="11" fill="#A8A096" text-anchor="middle">#1F1D19</text>
+
+    <rect x="120" y="16" width="80" height="40" rx="4" fill="#2A2823" stroke="#3D3A33"/>
+    <text x="160" y="76" class="name darkLabel" text-anchor="middle">Surface</text>
+    <text x="160" y="92" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="11" fill="#A8A096" text-anchor="middle">#2A2823</text>
+
+    <rect x="224" y="16" width="80" height="40" rx="4" fill="#F4EEE3"/>
+    <text x="264" y="76" class="name darkLabel" text-anchor="middle">Text-strong</text>
+    <text x="264" y="92" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="11" fill="#A8A096" text-anchor="middle">#F4EEE3</text>
+
+    <rect x="328" y="16" width="80" height="40" rx="4" fill="#A8A096"/>
+    <text x="368" y="76" class="name darkLabel" text-anchor="middle">Text-muted</text>
+    <text x="368" y="92" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="11" fill="#A8A096" text-anchor="middle">#A8A096</text>
+
+    <rect x="432" y="16" width="80" height="40" rx="4" fill="#3D3A33"/>
+    <text x="472" y="76" class="name darkLabel" text-anchor="middle">Border</text>
+    <text x="472" y="92" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="11" fill="#A8A096" text-anchor="middle">#3D3A33</text>
+  </g>
+</svg>
