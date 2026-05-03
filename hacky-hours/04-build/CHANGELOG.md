@@ -32,6 +32,15 @@ _MVP — Foundation slice complete; Onboarding slice in progress._
 
 ### Fixed
 
+- Coordinate input now bypasses Nominatim's text search. Strings like
+  "36N 15W" or "36, -15" are parsed client-side and the user's actual
+  coordinates are used for the climate lookup; we still call
+  Nominatim's reverse-geocoder for a human label, but its text search
+  is no longer in the path. Without this fix, "36N 15W" was getting
+  fuzzy-matched to unrelated places (Lima, Peru in the user's report)
+  because Nominatim's `/search` does not parse N/S/E/W. Hint text and
+  error messages updated to spell out the accepted coordinate formats
+  ("36, -15" or "36N 15W").
 - Köppen and frost lookups now resolve correctly for every land cell.
   The bucket math in `src/db/koppen.ts` and `src/db/frost.ts` was
   rounding compound-key values to integers (e.g. `45.5 → 46`), so

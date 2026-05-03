@@ -4,7 +4,13 @@ import Button from '../components/Button'
 import { lookupKoppen } from '../db/koppen'
 import { describeKoppen } from '../db/koppen-meta'
 import { lookupFrost } from '../db/frost'
-import { geocode, GeocodeError, roundCoord } from '../services/geocode'
+import {
+  geocode,
+  GeocodeError,
+  parseCoordinatePair,
+  reverseGeocode,
+  roundCoord,
+} from '../services/geocode'
 import { useOnboarding } from '../state/OnboardingContext'
 import type { Location as LocationData } from '../db/types'
 import './Location.css'
@@ -30,29 +36,52 @@ export default function Location() {
     try {
       const trimmed = query.trim()
       if (!trimmed) {
-        setError('Please enter a place to look up.')
-        return
-      }
-      const hit = await geocode(trimmed)
-      if (!hit) {
         setError(
-          `We couldn't find "${trimmed}" on the map. Check spelling, or try a larger nearby city. The lookup also accepts postal codes (like "90210") and "lat, lon" pairs.`,
+          'Please enter a place name, postal code, or coordinates ("36, -15" or "36N 15W").',
         )
         return
       }
-      const lat = roundCoord(hit.lat)
-      const lon = roundCoord(hit.lon)
+
+      // Coordinate input branch: parse client-side so Nominatim's text
+      // search never sees "36N 15W" (it would fuzzy-match to a wrong place).
+      // We use the user's coords directly and reverse-geocode for a label.
+      const coordPair = parseCoordinatePair(trimmed)
+      let lat: number
+      let lon: number
+      let label: string
+      let countryCode: string | undefined
+
+      if (coordPair) {
+        lat = roundCoord(coordPair.lat)
+        lon = roundCoord(coordPair.lon)
+        const reversed = await reverseGeocode(lat, lon)
+        label = reversed ?? `${lat}°, ${lon}°`
+        countryCode = undefined
+      } else {
+        const hit = await geocode(trimmed)
+        if (!hit) {
+          setError(
+            `We couldn't find "${trimmed}" on the map. Check spelling, or try a larger nearby city. We also accept postal codes (e.g. "90210"), decimal coordinates ("36, -15"), or hemisphere notation ("36N 15W").`,
+          )
+          return
+        }
+        lat = roundCoord(hit.lat)
+        lon = roundCoord(hit.lon)
+        label = hit.label
+        countryCode = hit.countryCode
+      }
+
       const koppenCode = await lookupKoppen(lat, lon)
       if (!koppenCode) {
         setError(
-          `We found "${hit.label}" at roughly ${lat}°, ${lon}°, but our climate grid doesn't have land data for that exact 1° cell — small islands and coastal points can fall into a water cell. Try a larger town a bit further inland.`,
+          `We resolved that to "${label}" at roughly ${lat}°, ${lon}°, but our climate grid doesn't have land data for that 1° cell — likely an ocean point, a small island, or right on a coastline. Try a larger town a bit further inland.`,
         )
         return
       }
       const frostCell = await lookupFrost(lat, lon)
       const location: LocationData = {
-        label: hit.label,
-        countryCode: hit.countryCode,
+        label,
+        countryCode,
         coords: { lat, lon },
         koppenCode,
         hemisphere: lat >= 0 ? 'northern' : 'southern',
@@ -108,7 +137,8 @@ export default function Location() {
           <small id="location-help" className="location__hint">
             Include the state, region, or country if your city name is common
             &mdash; e.g. <em>Portland, OR</em> vs <em>Portland, ME</em>.
-            Postal codes and <em>lat, lon</em> pairs work too.
+            Postal codes work too. For coordinates, use a decimal pair
+            (<em>36, -15</em>) or hemisphere letters (<em>36N 15W</em>).
           </small>
         </label>
         <Button type="submit" disabled={busy}>

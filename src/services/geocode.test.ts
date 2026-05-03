@@ -1,5 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import { GeocodeError, geocode, roundCoord } from './geocode'
+import {
+  GeocodeError,
+  geocode,
+  parseCoordinatePair,
+  roundCoord,
+} from './geocode'
 
 function makeFetch(
   response: { ok: boolean; status?: number; body: unknown } | Error,
@@ -65,5 +70,51 @@ describe('roundCoord', () => {
     expect(roundCoord(-9.1365919)).toBe(-9.1)
     expect(roundCoord(0.04)).toBe(0)
     expect(roundCoord(0.06)).toBe(0.1)
+  })
+})
+
+describe('parseCoordinatePair', () => {
+  it('parses decimal pairs', () => {
+    expect(parseCoordinatePair('36, -15')).toEqual({ lat: 36, lon: -15 })
+    expect(parseCoordinatePair('36 -15')).toEqual({ lat: 36, lon: -15 })
+    expect(parseCoordinatePair('-12.05, -77.04')).toEqual({
+      lat: -12.05,
+      lon: -77.04,
+    })
+  })
+
+  it('parses N/S/E/W notation in either order', () => {
+    expect(parseCoordinatePair('36N, 15W')).toEqual({ lat: 36, lon: -15 })
+    expect(parseCoordinatePair('36 N and 15 W')).toEqual({
+      lat: 36,
+      lon: -15,
+    })
+    expect(parseCoordinatePair('36.5°N 15.2°W')).toEqual({
+      lat: 36.5,
+      lon: -15.2,
+    })
+    expect(parseCoordinatePair('15W 36N')).toEqual({ lat: 36, lon: -15 })
+    expect(parseCoordinatePair('33.9S, 151.2E')).toEqual({
+      lat: -33.9,
+      lon: 151.2,
+    })
+  })
+
+  it('returns null for non-coordinate strings', () => {
+    expect(parseCoordinatePair('Lisbon, Portugal')).toBeNull()
+    expect(parseCoordinatePair('Portland, OR')).toBeNull()
+    expect(parseCoordinatePair('90210')).toBeNull()
+    expect(parseCoordinatePair('')).toBeNull()
+    expect(parseCoordinatePair('   ')).toBeNull()
+  })
+
+  it('rejects out-of-range coordinates', () => {
+    expect(parseCoordinatePair('200, 50')).toBeNull()
+    expect(parseCoordinatePair('45, 200')).toBeNull()
+  })
+
+  it('does not accept ambiguous single numbers', () => {
+    expect(parseCoordinatePair('36')).toBeNull()
+    expect(parseCoordinatePair('36N')).toBeNull()
   })
 })
