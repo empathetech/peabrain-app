@@ -30,7 +30,12 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        // Includes json so the bundled Köppen / frost-date grids in
+        // public/data/ are available offline after first load.
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,json}'],
+        // The Köppen grid is ~150KB and trips the default 2MB cap once
+        // additional reference data lands; lift the per-asset limit.
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
       devOptions: {
         enabled: false,

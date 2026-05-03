@@ -9,14 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Onboarding (Journey 1 — space first)
 
-- [ ] **Bundle Köppen-Geiger climate zone grid**
-  - Pick + commit an open-licensed dataset (e.g., Beck et al. 1km map,
-    downsampled to ~1° grid for bundle size)
-  - Convert to a compact JSON or binary format under `public/data/koppen/`
-  - Source + license recorded in `public/data/koppen/attributions.md`
-  - Loader hydrates `koppenCells` table on first run; idempotent
-  - Branch: `feat/koppen-grid`
-
 - [ ] **Bundle frost-date grid**
   - Pick + commit an open-licensed frost-date dataset (e.g., GHCN-derived)
   - Same shape: `public/data/frost/` with `attributions.md`, ~1° resolution

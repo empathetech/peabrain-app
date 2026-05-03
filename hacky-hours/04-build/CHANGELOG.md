@@ -5,7 +5,19 @@ Shipped work, grouped by release. Items move here from
 
 ## v0.1.0 — Unreleased
 
-_MVP — Foundation slice in progress._
+_MVP — Foundation slice complete; Onboarding slice in progress._
+
+### Added
+
+- Bundled the Beck et al. (2023) Köppen-Geiger climate zone map at 1°
+  resolution (CC BY 4.0). The grid lives at
+  `public/data/koppen/grid.json` (~150KB, ~8KB gzipped) with
+  attribution in `attributions.md`. A regeneration script
+  (`scripts/build-koppen-grid.mjs`) reads the upstream GeoTIFF and
+  rebuilds the JSON; `src/db/koppen.ts` hydrates the `koppenCells`
+  Dexie table on first load and resolves lat/lon to a Köppen code at
+  lookup time. Workbox precache now includes the bundled grid for
+  offline use.
 
 ### Added
 
