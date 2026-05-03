@@ -23,3 +23,7 @@ _MVP — Foundation slice in progress._
   frostDateCells, zones, regions, dataVersions). Domain types live in
   `src/db/types.ts`; the schema seam supports versioned migrations as
   shape-changes land.
+- Added `vite-plugin-pwa` with an autoUpdate service worker, app-shell
+  precache via Workbox, and a minimal web app manifest. The SW is
+  registered in `src/main.tsx`. Offline reload should work after a
+  production build (`pnpm build && pnpm preview`).

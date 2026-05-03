@@ -9,11 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Foundation
 
-- [ ] **Add vite-plugin-pwa for offline app shell**
-  - PWA manifest, service worker registration, app shell precache
-  - Verify offline reload works in a built preview
-  - Branch: `feat/pwa-shell`
-
 - [ ] **Set up CI pipeline (typecheck + lint + vitest + audit)**
   - GitHub Actions workflow on PR + push to `main`
   - Jobs: `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm audit`
