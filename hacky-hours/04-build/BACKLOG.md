@@ -9,12 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Foundation
 
-- [ ] **Add ESLint with jsx-a11y rules**
-  - ESLint flat config, `eslint-plugin-react`, `eslint-plugin-jsx-a11y`,
-    `@typescript-eslint`
-  - `pnpm lint` script wired up
-  - Branch: `feat/eslint-a11y`
-
 - [ ] **Add LICENSE file and attribution**
   - MIT license at repo root, attributed to Empathetech (per LICENSING.md)
   - Branch: `chore/license`

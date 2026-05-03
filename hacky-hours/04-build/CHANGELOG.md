@@ -13,3 +13,8 @@ _MVP — Foundation slice in progress._
   `pnpm build`, and `pnpm preview` are wired up.
 - Enabled TypeScript strict mode and `noUncheckedIndexedAccess` across
   `tsconfig.app.json` and `tsconfig.node.json`.
+- Added ESLint flat config with `typescript-eslint`, `eslint-plugin-react`,
+  `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, and
+  `eslint-plugin-jsx-a11y`. Pinned to ESLint 9 (plugin ecosystem hasn't
+  caught up to ESLint 10 yet). `pnpm lint` and `pnpm typecheck` scripts
+  wired up.
