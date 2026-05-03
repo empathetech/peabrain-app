@@ -34,3 +34,7 @@ _MVP — Foundation slice in progress._
   runs `pnpm typecheck`, `pnpm lint`, `pnpm test`, and
   `pnpm audit --prod` on PRs and pushes to `main`. Axe and plant-DB
   integrity jobs land alongside their respective modules.
+- Added a GitHub Pages deploy workflow (`.github/workflows/deploy.yml`)
+  that builds the production bundle and publishes `dist/` to Pages on
+  push to `main`. Vite `base` is set to `/peabrain-app/` for production
+  so assets resolve under the repo subpath.

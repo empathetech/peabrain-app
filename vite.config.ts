@@ -4,6 +4,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Served from https://empathetech.github.io/peabrain-app/ in production.
+  base: process.env.NODE_ENV === 'production' ? '/peabrain-app/' : '/',
   plugins: [
     react(),
     VitePWA({
@@ -16,7 +18,8 @@ export default defineConfig({
         theme_color: '#2f7d32',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
+        start_url: '.',
+        scope: '.',
         icons: [
           {
             src: 'favicon.svg',
