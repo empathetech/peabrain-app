@@ -84,7 +84,7 @@ export default function Location() {
   }
 
   return (
-    <main className="location">
+    <main id="main" className="location">
       <h1>Where is your garden?</h1>
       <p className="location__intro">
         Tell us roughly where you grow. We use this to figure out your climate

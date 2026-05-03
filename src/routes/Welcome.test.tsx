@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
@@ -10,6 +10,17 @@ vi.mock('react-router-dom', async () => {
     'react-router-dom',
   )
   return { ...actual, useNavigate: () => navigateMock }
+})
+
+const getActiveGardenIdMock = vi.fn()
+vi.mock('../services/active-garden', () => ({
+  getActiveGardenId: () => getActiveGardenIdMock(),
+}))
+
+beforeEach(() => {
+  navigateMock.mockClear()
+  getActiveGardenIdMock.mockReset()
+  getActiveGardenIdMock.mockReturnValue(null)
 })
 
 function renderWelcome() {
@@ -30,7 +41,6 @@ describe('Welcome', () => {
   })
 
   it('routes to /location when Start fresh is clicked', async () => {
-    navigateMock.mockClear()
     renderWelcome()
     await userEvent.click(screen.getByRole('button', { name: /start fresh/i }))
     expect(navigateMock).toHaveBeenCalledWith('/location')
@@ -41,5 +51,12 @@ describe('Welcome', () => {
     expect(
       screen.getByRole('button', { name: /import a plan/i }),
     ).toBeInTheDocument()
+  })
+
+  it('redirects returning users with an active garden to /canvas', () => {
+    getActiveGardenIdMock.mockReturnValue('garden-1')
+    renderWelcome()
+    expect(navigateMock).toHaveBeenCalledWith('/canvas', { replace: true })
+    expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument()
   })
 })

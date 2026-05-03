@@ -1,11 +1,21 @@
 import { useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Button from '../components/Button'
+import { getActiveGardenId } from '../services/active-garden'
 import './Welcome.css'
 
 export default function Welcome() {
   const navigate = useNavigate()
   const fileInput = useRef<HTMLInputElement>(null)
+  // Returning users with a saved garden skip Welcome and go straight to
+  // their plot. Synchronous read — no effect-driven setState cascade.
+  const activeGarden = getActiveGardenId()
+
+  useEffect(() => {
+    if (activeGarden) navigate('/canvas', { replace: true })
+  }, [activeGarden, navigate])
+
+  if (activeGarden) return null
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -16,7 +26,7 @@ export default function Welcome() {
   }
 
   return (
-    <main className="welcome">
+    <main id="main" className="welcome">
       <header className="welcome__header">
         <h1>peabrain</h1>
         <p className="welcome__tagline">

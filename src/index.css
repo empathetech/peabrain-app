@@ -145,3 +145,22 @@ a:focus-visible {
 button {
   font: inherit;
 }
+
+/* Skip link — visible only when focused. */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-garden-green);
+  color: var(--color-bg);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform var(--duration-quick) ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}

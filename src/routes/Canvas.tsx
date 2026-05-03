@@ -48,14 +48,14 @@ export default function Canvas() {
 
   if (status === 'loading') {
     return (
-      <main className="canvas-route">
+      <main id="main" className="canvas-route">
         <p>Loading your garden…</p>
       </main>
     )
   }
   if (status === 'error') {
     return (
-      <main className="canvas-route">
+      <main id="main" className="canvas-route">
         <p role="alert">
           Something went wrong reading your garden. Please reload.
         </p>
@@ -65,7 +65,7 @@ export default function Canvas() {
   if (!garden) return null
 
   return (
-    <main className="canvas-route">
+    <main id="main" className="canvas-route">
       <header className="canvas-route__header">
         <h1>{garden.name}</h1>
         <p className="canvas-route__meta">

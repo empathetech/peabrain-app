@@ -56,3 +56,55 @@ _MVP — Foundation slice complete; Onboarding slice in progress._
   Approach + alternatives + V1 upgrade path documented in ADR
   [`2026-05-03-frost-date-heuristic-mvp.md`](../02-design/decisions/2026-05-03-frost-date-heuristic-mvp.md);
   ROADMAP updated to reference the ADR.
+- Added `react-router-dom` 7 with a `HashRouter` (compatible with the
+  GitHub Pages subpath deploy) and four routes: `/` (Welcome),
+  `/location`, `/garden`, `/canvas`. Unknown paths redirect to
+  Welcome.
+- Replaced the Vite scaffold's CSS with peabrain design tokens from
+  `STYLE_GUIDE.md`: full palette (brand, status, light/dark
+  neutrals), modular type scale (1.125 ratio, 16px base), 4px spacing
+  grid, 44px tap-target minimum, and `prefers-reduced-motion`
+  handling.
+- Built the Welcome screen — heading, tagline, intro copy synthesized
+  from `PRODUCT_OVERVIEW.md`, and Start-fresh / Import-a-plan
+  actions. Returning users with an active garden in localStorage are
+  redirected straight to `/canvas`. Import wiring is deferred — the
+  file picker exists but JSON-import logic lands later.
+- Built the Location form — typed city + country, single-shot
+  Nominatim geocoding (fair-use compliant, identifying email),
+  coordinate rounding to 0.1° per `SECURITY_PRIVACY.md`, Köppen +
+  frost lookup, and a confirmation panel showing the resolved zone +
+  description + hemisphere + frost dates with the heuristic's
+  ±21-day uncertainty surfaced.
+  - `src/services/geocode.ts` — Nominatim client + `roundCoord`
+  - `src/db/koppen-meta.ts` — code → human description (Beck legend)
+  - `src/state/OnboardingContext.tsx` — sessionStorage-backed
+    Location draft carried between routes
+- Built the Garden creation form — name, dimensions (with metric /
+  imperial unit toggle, normalized to centimetres for storage),
+  validation. Inserts the Garden via Dexie and stamps the new id as
+  the active garden in localStorage.
+  - `src/services/active-garden.ts` — localStorage wrapper
+- Built the empty bird's-eye Canvas route. Loads the active garden
+  from Dexie, renders garden name + location + Köppen description,
+  and displays the empty plot in an SVG canvas with hand-rolled pan
+  / zoom (no third-party canvas library, per `ARCHITECTURE.md`).
+  - `GardenCanvas` — viewBox-based pan + zoom, viewport-anchored
+    wheel zoom, pointer drag to pan, full keyboard model
+    (arrows / +/- / 0 / Home), `role="application"` with descriptive
+    aria-label, 44×44 toolbar buttons, subtle 1m grid pattern, 1m
+    scale ruler, soil-stroked plot rectangle.
+- Wired the onboarding flow end-to-end:
+  - `src/state/grid-bootstrap.ts` kicks off Köppen + frost
+    hydration in the background on app boot, so the first geocode
+    isn't blocked
+  - Welcome → /canvas redirect for returning users
+  - GardenSetup → /location redirect when no draft Location
+  - Canvas → / redirect when no active garden
+  - Skip-to-main-content link visible on focus
+- Tests across the slice: geocode parsing + error paths + rounding,
+  Welcome (heading / Start-fresh navigation / Import button /
+  returning-user redirect), Location (resolution / no-results /
+  confirm-and-navigate), GardenSetup (metric + imperial save flow,
+  validation, no-location redirect), Canvas (no-garden redirect,
+  header rendering, SVG accessible label). 28 tests across 8 files.

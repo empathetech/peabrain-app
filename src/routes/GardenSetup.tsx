@@ -79,7 +79,7 @@ export default function GardenSetup() {
   const unitLabel = units === 'metric' ? 'metres' : 'feet'
 
   return (
-    <main className="garden-setup">
+    <main id="main" className="garden-setup">
       <h1>Set up your garden</h1>
       <p className="garden-setup__intro">
         We&rsquo;ve got your zone. Now tell us about the patch you&rsquo;ll be
