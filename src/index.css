@@ -1,111 +1,147 @@
+/* Peabrain design tokens — STYLE_GUIDE.md
+ * Color palette, type scale, light/dark mode, motion preferences.
+ * Component-specific styles live alongside their components or in App.css.
+ */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Brand */
+  --color-garden-green: #3f7d44;
+  --color-terracotta: #b8643a;
+  --color-sun-yellow: #e8b23e;
+  --color-sky-blue-gray: #7fa3b5;
+  --color-soil-deep: #5c3a21;
+  --color-foliage-soft: #8fba8c;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Status */
+  --color-status-great: #3f7d44;
+  --color-status-decent: #c68a3f;
+  --color-status-stretch: #d67635;
+  --color-status-impossible: #b0463c;
+  --color-status-harvest: #e8b23e;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  /* Light-mode neutrals (default) */
+  --color-bg: #fbf7f1;
+  --color-surface: #f4eee3;
+  --color-text-strong: #2a2823;
+  --color-text-muted: #6b645a;
+  --color-border: #d9d2c4;
+
+  /* Type — modular scale, ratio 1.125, base 16px */
+  --font-sans:
+    'Atkinson Hyperlegible', Inter, system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+  --font-mono:
+    'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', Consolas,
+    monospace;
+
+  --size-caption: 0.8125rem; /* 13px */
+  --size-body: 1rem;          /* 16px */
+  --size-subhead: 1.125rem;   /* 18px */
+  --size-heading: 1.375rem;   /* 22px */
+  --size-display: 2rem;       /* 32px */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Spacing — 4px grid */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+
+  /* Tap target minimum */
+  --target-min: 2.75rem; /* 44px */
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+
+  --duration-quick: 150ms;
+  --duration-normal: 240ms;
+
   color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  font-family: var(--font-sans);
+  font-size: var(--size-body);
+  line-height: 1.5;
+  color: var(--color-text-strong);
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --color-bg: #1f1d19;
+    --color-surface: #2a2823;
+    --color-text-strong: #f4eee3;
+    --color-text-muted: #a8a096;
+    --color-border: #3d3a33;
   }
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-quick: 0ms;
+    --duration-normal: 0ms;
+  }
+}
+
+* {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  min-height: 100svh;
 }
 
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+h2,
+h3 {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-strong);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: var(--size-display);
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  font-size: var(--size-heading);
 }
+
+h3 {
+  font-size: var(--size-subhead);
+  font-weight: var(--weight-semibold);
+}
+
 p {
-  margin: 0;
+  margin: 0 0 var(--space-4);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: var(--color-garden-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+a:hover,
+a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-garden-green);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+button {
+  font: inherit;
 }

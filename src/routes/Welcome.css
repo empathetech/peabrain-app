@@ -1,0 +1,29 @@
+.welcome {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-4);
+}
+
+.welcome__header h1 {
+  font-size: var(--size-display);
+  margin-bottom: var(--space-2);
+  color: var(--color-garden-green);
+}
+
+.welcome__tagline {
+  font-size: var(--size-subhead);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.welcome__intro {
+  font-size: var(--size-body);
+  margin-bottom: var(--space-8);
+  color: var(--color-text-strong);
+}
+
+.welcome__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
