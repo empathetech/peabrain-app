@@ -16,15 +16,17 @@ type GridFile = {
 
 const KOPPEN_VERSION_KEY = 'koppen'
 
-function bucketFromLat(lat: number, latTop: number): number {
-  // Row index in the source grid; we store the centre lat as latBucket.
+// Cells are stored at half-integer centre coords (89.5, 88.5, …, -89.5 for
+// lat; -179.5, -178.5, …, 179.5 for lon). The bucket value must match exactly
+// for Dexie's compound-key lookup, so we never round to an integer here.
+export function bucketFromLat(lat: number, latTop: number): number {
   const i = Math.round(latTop - lat)
-  return Math.round(latTop - i)
+  return latTop - i
 }
 
-function bucketFromLon(lon: number, lonLeft: number): number {
+export function bucketFromLon(lon: number, lonLeft: number): number {
   const j = Math.round(lon - lonLeft)
-  return Math.round(lonLeft + j)
+  return lonLeft + j
 }
 
 let hydrationPromise: Promise<void> | null = null

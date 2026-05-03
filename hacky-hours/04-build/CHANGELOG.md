@@ -7,6 +7,16 @@ Shipped work, grouped by release. Items move here from
 
 _MVP — Foundation slice complete; Onboarding slice in progress._
 
+### Fixed
+
+- Köppen and frost lookups now resolve correctly for every land cell.
+  The bucket math in `src/db/koppen.ts` and `src/db/frost.ts` was
+  rounding compound-key values to integers (e.g. `45.5 → 46`), so
+  every Dexie lookup missed against cells stored at half-integer
+  centres (`45.5`, `-122.5`, etc.) and the UI surfaced the result as
+  "ocean" — even for landlocked cities like Portland. Round-trip
+  regression test added.
+
 ### Added
 
 - Scaffolded Vite + React + TypeScript app at the repo root. `pnpm dev`,
