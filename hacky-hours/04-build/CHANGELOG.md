@@ -19,7 +19,13 @@ _MVP — Foundation slice complete; Onboarding slice in progress._
   include state/region/country when the city name is common (e.g.
   "Portland, OR" vs "Portland, ME"). Nominatim handles free-form
   queries fine and the previous split city/country fields lost
-  important disambiguation context.
+  important disambiguation context. Hint also notes that postal
+  codes and "lat, lon" pairs are accepted.
+- Location error messages clarified: "couldn't find" now suggests
+  spelling / larger city / postal-code / lat-lon alternatives, and
+  the no-climate-data path no longer claims "ocean cell" — it now
+  shows what Nominatim resolved (label + coords) and explains that
+  small islands or coastal points can fall into a 1° water cell.
 - The canvas scale ruler now shows "3 ft" for imperial gardens
   (instead of always "1 m"). 3 ft (~91 cm) is roughly the same
   visual length as 1 m, so the ruler stays a comparable size.

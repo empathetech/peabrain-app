@@ -35,7 +35,9 @@ export default function Location() {
       }
       const hit = await geocode(trimmed)
       if (!hit) {
-        setError(`We couldn't find "${trimmed}". Try a larger nearby city.`)
+        setError(
+          `We couldn't find "${trimmed}" on the map. Check spelling, or try a larger nearby city. The lookup also accepts postal codes (like "90210") and "lat, lon" pairs.`,
+        )
         return
       }
       const lat = roundCoord(hit.lat)
@@ -43,7 +45,7 @@ export default function Location() {
       const koppenCode = await lookupKoppen(lat, lon)
       if (!koppenCode) {
         setError(
-          'That looks like an ocean cell on our climate grid. Try a city closer to where you garden.',
+          `We found "${hit.label}" at roughly ${lat}°, ${lon}°, but our climate grid doesn't have land data for that exact 1° cell — small islands and coastal points can fall into a water cell. Try a larger town a bit further inland.`,
         )
         return
       }
@@ -106,6 +108,7 @@ export default function Location() {
           <small id="location-help" className="location__hint">
             Include the state, region, or country if your city name is common
             &mdash; e.g. <em>Portland, OR</em> vs <em>Portland, ME</em>.
+            Postal codes and <em>lat, lon</em> pairs work too.
           </small>
         </label>
         <Button type="submit" disabled={busy}>
