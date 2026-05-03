@@ -18,3 +18,8 @@ _MVP — Foundation slice in progress._
   `eslint-plugin-jsx-a11y`. Pinned to ESLint 9 (plugin ecosystem hasn't
   caught up to ESLint 10 yet). `pnpm lint` and `pnpm typecheck` scripts
   wired up.
+- Wired up Dexie with a v1 schema covering all DATA_MODEL.md tables
+  (gardens, surfaces, sunZones, plantings, plants, koppenCells,
+  frostDateCells, zones, regions, dataVersions). Domain types live in
+  `src/db/types.ts`; the schema seam supports versioned migrations as
+  shape-changes land.

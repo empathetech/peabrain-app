@@ -9,15 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Foundation
 
-- [ ] **Add LICENSE file and attribution**
-  - MIT license at repo root, attributed to Empathetech (per LICENSING.md)
-  - Branch: `chore/license`
-
-- [ ] **Wire up Dexie with versioned schema**
-  - Dexie dependency, initial schema module, version 1 declared
-  - Migration scaffolding in place (no migrations yet, but the seam exists)
-  - Branch: `feat/dexie-schema-v1`
-
 - [ ] **Add vite-plugin-pwa for offline app shell**
   - PWA manifest, service worker registration, app shell precache
   - Verify offline reload works in a built preview
