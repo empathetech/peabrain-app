@@ -9,12 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Onboarding (Journey 1 — space first)
 
-- [ ] **Bundle frost-date grid**
-  - Pick + commit an open-licensed frost-date dataset (e.g., GHCN-derived)
-  - Same shape: `public/data/frost/` with `attributions.md`, ~1° resolution
-  - Loader hydrates `frostDateCells` table; idempotent
-  - Branch: `feat/frost-grid`
-
 - [ ] **Add client-side routing**
   - React Router with routes for Welcome, Location, Garden setup, Canvas
   - HashRouter to avoid Pages 404s on refresh; revisit if we move off Pages

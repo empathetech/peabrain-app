@@ -9,18 +9,6 @@ _MVP — Foundation slice complete; Onboarding slice in progress._
 
 ### Added
 
-- Bundled the Beck et al. (2023) Köppen-Geiger climate zone map at 1°
-  resolution (CC BY 4.0). The grid lives at
-  `public/data/koppen/grid.json` (~150KB, ~8KB gzipped) with
-  attribution in `attributions.md`. A regeneration script
-  (`scripts/build-koppen-grid.mjs`) reads the upstream GeoTIFF and
-  rebuilds the JSON; `src/db/koppen.ts` hydrates the `koppenCells`
-  Dexie table on first load and resolves lat/lon to a Köppen code at
-  lookup time. Workbox precache now includes the bundled grid for
-  offline use.
-
-### Added
-
 - Scaffolded Vite + React + TypeScript app at the repo root. `pnpm dev`,
   `pnpm build`, and `pnpm preview` are wired up.
 - Enabled TypeScript strict mode and `noUncheckedIndexedAccess` across
@@ -50,3 +38,21 @@ _MVP — Foundation slice complete; Onboarding slice in progress._
   that builds the production bundle and publishes `dist/` to Pages on
   push to `main`. Vite `base` is set to `/peabrain-app/` for production
   so assets resolve under the repo subpath.
+- Bundled the Beck et al. (2023) Köppen-Geiger climate zone map at 1°
+  resolution (CC BY 4.0). The grid lives at
+  `public/data/koppen/grid.json` (~150KB, ~8KB gzipped) with
+  attribution in `attributions.md`. A regeneration script
+  (`scripts/build-koppen-grid.mjs`) reads the upstream GeoTIFF and
+  rebuilds the JSON; `src/db/koppen.ts` hydrates the `koppenCells`
+  Dexie table on first load and resolves lat/lon to a Köppen code at
+  lookup time. Workbox precache now includes the bundled grid for
+  offline use.
+- Bundled a derived frost-date grid at `public/data/frost/grid.json`
+  (~370KB raw, ~6KB gzipped) generated from the Köppen grid via a
+  per-zone heuristic anchored against published frost climatology. The
+  grid is hemisphere-shifted; tropical / hot-arid / polar cells are
+  null. Generator script lives at `scripts/build-frost-grid.mjs`;
+  `src/db/frost.ts` hydrates `frostDateCells` on first load.
+  Approach + alternatives + V1 upgrade path documented in ADR
+  [`2026-05-03-frost-date-heuristic-mvp.md`](../02-design/decisions/2026-05-03-frost-date-heuristic-mvp.md);
+  ROADMAP updated to reference the ADR.

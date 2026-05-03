@@ -42,7 +42,10 @@ sun-default / season, and save their plan to a file they own.*
 - Welcome screen (one paragraph + Start fresh / Import buttons)
 - Set location: typed input only (city + country); browser geolocation deferred to V1
 - Climate zone identified from bundled Köppen-Geiger grid
-- Hemisphere-aware seasons resolved from frost-date grid (bundled)
+- Hemisphere-aware seasons resolved from frost-date grid (bundled,
+  derived heuristically from the Köppen grid for MVP — see
+  [ADR 2026-05-03](../02-design/decisions/2026-05-03-frost-date-heuristic-mvp.md);
+  V1 replaces with derived data from a real climatology)
 - Garden creation: name, rough plot dimensions, units preference
 - Empty bird's-eye canvas appears at scale
 
