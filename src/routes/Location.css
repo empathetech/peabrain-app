@@ -1,0 +1,100 @@
+.location {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+.location__intro {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.location__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.location__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-weight: var(--weight-medium);
+}
+
+.location__field input {
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text-strong);
+  font-size: var(--size-body);
+  font-family: inherit;
+}
+
+.location__field input:focus-visible {
+  border-color: var(--color-garden-green);
+}
+
+.location__hint {
+  color: var(--color-text-muted);
+  font-size: var(--size-caption);
+  margin-top: var(--space-1);
+  font-weight: var(--weight-regular);
+}
+
+.location__error {
+  color: var(--color-status-impossible);
+  font-weight: var(--weight-medium);
+  background: color-mix(in srgb, var(--color-status-impossible) 12%, transparent);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-status-impossible);
+  margin-bottom: var(--space-4);
+}
+
+.location__result {
+  background: var(--color-surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.location__result h2 {
+  font-size: var(--size-subhead);
+  color: var(--color-garden-green);
+  margin-bottom: var(--space-2);
+}
+
+.location__zone {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.location__zone dt {
+  color: var(--color-text-muted);
+  font-size: var(--size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  align-self: center;
+}
+
+.location__zone dd {
+  margin: 0;
+}
+
+.location__caveat {
+  color: var(--color-text-muted);
+  font-size: var(--size-caption);
+  margin-bottom: var(--space-4);
+}
+
+.location__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

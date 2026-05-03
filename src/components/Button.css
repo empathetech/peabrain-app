@@ -1,0 +1,40 @@
+.pb-button {
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--size-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    background-color var(--duration-quick) ease,
+    color var(--duration-quick) ease,
+    border-color var(--duration-quick) ease;
+}
+
+.pb-button--primary {
+  background: var(--color-garden-green);
+  color: var(--color-bg);
+}
+
+.pb-button--primary:hover,
+.pb-button--primary:focus-visible {
+  background: color-mix(in srgb, var(--color-garden-green) 88%, black);
+}
+
+.pb-button--secondary {
+  background: transparent;
+  color: var(--color-text-strong);
+  border-color: var(--color-border);
+}
+
+.pb-button--secondary:hover,
+.pb-button--secondary:focus-visible {
+  border-color: var(--color-garden-green);
+  color: var(--color-garden-green);
+}
+
+.pb-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

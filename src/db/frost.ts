@@ -96,8 +96,9 @@ export async function lookupFrost(
   lon: number,
 ): Promise<FrostLookup | null> {
   await ensureFrostLoaded()
-  const latBucket = Math.round(89.5 - Math.round(89.5 - lat))
-  const lonBucket = Math.round(-179.5 + Math.round(lon - -179.5))
+  // Cells are stored at half-integer centres; do not round to an integer.
+  const latBucket = 89.5 - Math.round(89.5 - lat)
+  const lonBucket = -179.5 + Math.round(lon - -179.5)
   const cell = await db.frostDateCells.get([latBucket, lonBucket])
   if (!cell) return null
   return {

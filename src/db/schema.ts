@@ -52,6 +52,24 @@ export class PeabrainDB extends Dexie {
       regions: 'code, parent',
       dataVersions: 'key',
     })
+
+    // v2: rename Garden.bounds.heightCm → lengthCm. The original name was
+    // misleading — Garden bounds are a top-down 2D footprint, not a 3D box.
+    this.version(2).upgrade(async (tx) => {
+      await tx
+        .table<{ id: string; bounds?: { widthCm?: number; heightCm?: number; lengthCm?: number } }>('gardens')
+        .toCollection()
+        .modify((row) => {
+          if (
+            row.bounds &&
+            'heightCm' in row.bounds &&
+            row.bounds.lengthCm === undefined
+          ) {
+            row.bounds.lengthCm = row.bounds.heightCm
+            delete row.bounds.heightCm
+          }
+        })
+    })
   }
 }
 

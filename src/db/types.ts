@@ -27,7 +27,7 @@ export type Garden = {
   name: string
   location: Location
   units: 'metric' | 'imperial'
-  bounds: { widthCm: number; heightCm: number }
+  bounds: { widthCm: number; lengthCm: number }
   notes?: string
   createdAt: string
   updatedAt: string

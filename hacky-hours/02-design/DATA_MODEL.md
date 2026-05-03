@@ -262,7 +262,7 @@ type Garden = {
   name: string;               // user-chosen, e.g. "Backyard"
   location: Location;
   units: "metric" | "imperial"; // overrides user pref for this garden
-  bounds: { widthCm: number; heightCm: number }; // overall plot dimensions
+  bounds: { widthCm: number; lengthCm: number }; // overall plot footprint (top-down)
   notes?: string;
   createdAt: string;          // ISO timestamp
   updatedAt: string;
