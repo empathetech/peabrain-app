@@ -11,3 +11,5 @@ _MVP — Foundation slice in progress._
 
 - Scaffolded Vite + React + TypeScript app at the repo root. `pnpm dev`,
   `pnpm build`, and `pnpm preview` are wired up.
+- Enabled TypeScript strict mode and `noUncheckedIndexedAccess` across
+  `tsconfig.app.json` and `tsconfig.node.json`.

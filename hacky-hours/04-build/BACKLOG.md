@@ -9,10 +9,6 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ## Foundation
 
-- [ ] **Enable TypeScript strict mode**
-  - `"strict": true` in `tsconfig.json` plus `noUncheckedIndexedAccess`
-  - Branch: `feat/ts-strict`
-
 - [ ] **Add ESLint with jsx-a11y rules**
   - ESLint flat config, `eslint-plugin-react`, `eslint-plugin-jsx-a11y`,
     `@typescript-eslint`
