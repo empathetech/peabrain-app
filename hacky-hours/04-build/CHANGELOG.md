@@ -27,3 +27,10 @@ _MVP — Foundation slice in progress._
   precache via Workbox, and a minimal web app manifest. The SW is
   registered in `src/main.tsx`. Offline reload should work after a
   production build (`pnpm build && pnpm preview`).
+- Added Vitest with jsdom + Testing Library, a setup file pulling in
+  `@testing-library/jest-dom`, and a smoke test asserting the v1 Dexie
+  schema declares all DATA_MODEL.md tables.
+- Added a GitHub Actions CI workflow (`.github/workflows/ci.yml`) that
+  runs `pnpm typecheck`, `pnpm lint`, `pnpm test`, and
+  `pnpm audit --prod` on PRs and pushes to `main`. Axe and plant-DB
+  integrity jobs land alongside their respective modules.
