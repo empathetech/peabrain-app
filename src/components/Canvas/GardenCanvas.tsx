@@ -22,12 +22,12 @@ const MAX_ZOOM = 8
 
 function makeInitialViewBox(garden: Garden): ViewBox {
   const padX = garden.bounds.widthCm * PAD_RATIO
-  const padY = garden.bounds.heightCm * PAD_RATIO
+  const padY = garden.bounds.lengthCm * PAD_RATIO
   return {
     x: -padX,
     y: -padY,
     width: garden.bounds.widthCm + padX * 2,
-    height: garden.bounds.heightCm + padY * 2,
+    height: garden.bounds.lengthCm + padY * 2,
   }
 }
 
@@ -146,12 +146,13 @@ export default function GardenCanvas({ garden }: Props) {
     }
   }
 
-  // Grid lines every 1m (100cm), thicker every 5m.
-  const gridLines: number[] = []
-  for (let x = 0; x <= garden.bounds.widthCm; x += 100) gridLines.push(x)
-
   const widthLabel = formatLength(garden.bounds.widthCm, garden.units)
-  const heightLabel = formatLength(garden.bounds.heightCm, garden.units)
+  const lengthLabel = formatLength(garden.bounds.lengthCm, garden.units)
+
+  // Scale ruler segment — show 1 m for metric users, 3 ft (~91 cm) for
+  // imperial. Picking 3 ft instead of 1 ft gives a comparable-sized bar.
+  const rulerCm = garden.units === 'imperial' ? 91.44 : 100
+  const rulerLabel = garden.units === 'imperial' ? '3 ft' : '1 m'
 
   return (
     <div className="garden-canvas">
@@ -175,7 +176,7 @@ export default function GardenCanvas({ garden }: Props) {
         className="garden-canvas__svg"
         viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
         role="application"
-        aria-label={`Bird's-eye view of ${garden.name}, ${widthLabel} by ${heightLabel}. Empty for now. Use arrow keys to pan, plus and minus to zoom, zero to reset.`}
+        aria-label={`Bird's-eye view of ${garden.name}, ${widthLabel} by ${lengthLabel}. Empty for now. Use arrow keys to pan, plus and minus to zoom, zero to reset.`}
         tabIndex={0}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
@@ -207,7 +208,7 @@ export default function GardenCanvas({ garden }: Props) {
           x="0"
           y="0"
           width={garden.bounds.widthCm}
-          height={garden.bounds.heightCm}
+          height={garden.bounds.lengthCm}
           fill="var(--color-surface)"
           stroke="var(--color-soil-deep)"
           strokeWidth="6"
@@ -216,30 +217,31 @@ export default function GardenCanvas({ garden }: Props) {
           x="0"
           y="0"
           width={garden.bounds.widthCm}
-          height={garden.bounds.heightCm}
+          height={garden.bounds.lengthCm}
           fill="url(#grid-1m)"
           pointerEvents="none"
         />
 
-        {/* Scale ruler — 1m segment in the lower-left, outside the plot */}
+        {/* Scale ruler — segment + label in the lower-left, outside the plot.
+            Length matches the user's preferred units. */}
         <g pointerEvents="none">
           <line
             x1={0}
-            y1={garden.bounds.heightCm + 60}
-            x2={100}
-            y2={garden.bounds.heightCm + 60}
+            y1={garden.bounds.lengthCm + 60}
+            x2={rulerCm}
+            y2={garden.bounds.lengthCm + 60}
             stroke="var(--color-text-strong)"
             strokeWidth="6"
           />
           <text
-            x={50}
-            y={garden.bounds.heightCm + 90}
+            x={rulerCm / 2}
+            y={garden.bounds.lengthCm + 90}
             textAnchor="middle"
             fontSize="36"
             fill="var(--color-text-strong)"
             fontFamily="var(--font-mono)"
           >
-            1 m
+            {rulerLabel}
           </text>
         </g>
       </svg>

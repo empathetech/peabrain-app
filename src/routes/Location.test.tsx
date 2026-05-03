@@ -64,7 +64,7 @@ describe('Location', () => {
     })
     renderLocation()
     await userEvent.type(
-      screen.getByRole('textbox', { name: /city or town/i }),
+      screen.getByRole('textbox', { name: /where is your garden/i }),
       'Lisbon',
     )
     await userEvent.click(screen.getByRole('button', { name: /find my zone/i }))
@@ -80,7 +80,7 @@ describe('Location', () => {
     geocodeMock.mockResolvedValueOnce(null)
     renderLocation()
     await userEvent.type(
-      screen.getByRole('textbox', { name: /city or town/i }),
+      screen.getByRole('textbox', { name: /where is your garden/i }),
       'asdfqwerzxcv',
     )
     await userEvent.click(screen.getByRole('button', { name: /find my zone/i }))
@@ -100,7 +100,7 @@ describe('Location', () => {
     })
     renderLocation()
     await userEvent.type(
-      screen.getByRole('textbox', { name: /city or town/i }),
+      screen.getByRole('textbox', { name: /where is your garden/i }),
       'Lisbon',
     )
     await userEvent.click(screen.getByRole('button', { name: /find my zone/i }))

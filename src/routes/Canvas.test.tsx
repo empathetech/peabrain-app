@@ -32,7 +32,7 @@ const SAMPLE_GARDEN: Garden = {
     hemisphere: 'northern',
   },
   units: 'metric',
-  bounds: { widthCm: 600, heightCm: 400 },
+  bounds: { widthCm: 600, lengthCm: 400 },
   createdAt: '2026-05-01T00:00:00.000Z',
   updatedAt: '2026-05-01T00:00:00.000Z',
 }

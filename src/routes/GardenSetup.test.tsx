@@ -69,7 +69,7 @@ describe('GardenSetup', () => {
     )
     await userEvent.type(screen.getByRole('spinbutton', { name: /width/i }), '6')
     await userEvent.type(
-      screen.getByRole('spinbutton', { name: /height/i }),
+      screen.getByRole('spinbutton', { name: /length/i }),
       '4',
     )
     await userEvent.click(screen.getByRole('button', { name: /create garden/i }))
@@ -82,7 +82,7 @@ describe('GardenSetup', () => {
     const garden = call[0]
     expect(garden.name).toBe('Backyard')
     expect(garden.units).toBe('metric')
-    expect(garden.bounds).toEqual({ widthCm: 600, heightCm: 400 })
+    expect(garden.bounds).toEqual({ widthCm: 600, lengthCm: 400 })
     expect(garden.location).toEqual(SAMPLE_LOCATION)
     expect(setActiveGardenIdMock).toHaveBeenCalledWith(garden.id)
     expect(navigateMock).toHaveBeenCalledWith('/canvas')
@@ -100,7 +100,7 @@ describe('GardenSetup', () => {
       '20',
     )
     await userEvent.type(
-      screen.getByRole('spinbutton', { name: /height/i }),
+      screen.getByRole('spinbutton', { name: /length/i }),
       '10',
     )
     await userEvent.click(screen.getByRole('button', { name: /create garden/i }))
@@ -113,7 +113,7 @@ describe('GardenSetup', () => {
     const garden = call[0]
     // 20 ft = 609.6 cm → rounds to 610; 10 ft = 304.8 cm → rounds to 305
     expect(garden.bounds.widthCm).toBe(610)
-    expect(garden.bounds.heightCm).toBe(305)
+    expect(garden.bounds.lengthCm).toBe(305)
     expect(garden.units).toBe('imperial')
   })
 
@@ -121,7 +121,7 @@ describe('GardenSetup', () => {
     renderGardenSetup()
     await userEvent.type(screen.getByRole('spinbutton', { name: /width/i }), '6')
     await userEvent.type(
-      screen.getByRole('spinbutton', { name: /height/i }),
+      screen.getByRole('spinbutton', { name: /length/i }),
       '4',
     )
     await userEvent.click(screen.getByRole('button', { name: /create garden/i }))

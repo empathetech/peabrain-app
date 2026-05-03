@@ -17,8 +17,7 @@ type Resolved = {
 export default function Location() {
   const navigate = useNavigate()
   const { setLocation } = useOnboarding()
-  const [city, setCity] = useState('')
-  const [country, setCountry] = useState('')
+  const [query, setQuery] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [resolved, setResolved] = useState<Resolved | null>(null)
@@ -29,14 +28,14 @@ export default function Location() {
     setResolved(null)
     setBusy(true)
     try {
-      const query = [city.trim(), country.trim()].filter(Boolean).join(', ')
-      if (!query) {
-        setError('Please enter at least a city or country.')
+      const trimmed = query.trim()
+      if (!trimmed) {
+        setError('Please enter a place to look up.')
         return
       }
-      const hit = await geocode(query)
+      const hit = await geocode(trimmed)
       if (!hit) {
-        setError(`We couldn't find "${query}". Try a larger nearby city.`)
+        setError(`We couldn't find "${trimmed}". Try a larger nearby city.`)
         return
       }
       const lat = roundCoord(hit.lat)
@@ -94,25 +93,20 @@ export default function Location() {
 
       <form onSubmit={handleResolve} className="location__form" noValidate>
         <label className="location__field">
-          <span>City or town</span>
+          <span>Where is your garden?</span>
           <input
             type="text"
-            autoComplete="address-level2"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Lisbon"
+            autoComplete="off"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Portland, OR  ·  Lisbon, Portugal  ·  Sydney, NSW"
+            aria-describedby="location-help"
             required
           />
-        </label>
-        <label className="location__field">
-          <span>Country</span>
-          <input
-            type="text"
-            autoComplete="country-name"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            placeholder="Portugal"
-          />
+          <small id="location-help" className="location__hint">
+            Include the state, region, or country if your city name is common
+            &mdash; e.g. <em>Portland, OR</em> vs <em>Portland, ME</em>.
+          </small>
         </label>
         <Button type="submit" disabled={busy}>
           {busy ? 'Looking up…' : 'Find my zone'}

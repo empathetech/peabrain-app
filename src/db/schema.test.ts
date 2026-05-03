@@ -19,6 +19,6 @@ describe('PeabrainDB', () => {
         'zones',
       ].sort(),
     )
-    expect(db.verno).toBe(1)
+    expect(db.verno).toBe(2)
   })
 })

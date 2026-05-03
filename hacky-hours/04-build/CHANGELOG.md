@@ -7,6 +7,23 @@ Shipped work, grouped by release. Items move here from
 
 _MVP — Foundation slice complete; Onboarding slice in progress._
 
+### Changed
+
+- **Schema v2 (Dexie migration):** `Garden.bounds.heightCm` →
+  `Garden.bounds.lengthCm`. The original name implied a vertical
+  third dimension, which Garden bounds do not represent — they're a
+  top-down 2D footprint. Existing rows are migrated automatically on
+  app load. `DATA_MODEL.md` updated.
+- The Location form now takes a single combined "Where is your
+  garden?" input with examples in the placeholder and a hint to
+  include state/region/country when the city name is common (e.g.
+  "Portland, OR" vs "Portland, ME"). Nominatim handles free-form
+  queries fine and the previous split city/country fields lost
+  important disambiguation context.
+- The canvas scale ruler now shows "3 ft" for imperial gardens
+  (instead of always "1 m"). 3 ft (~91 cm) is roughly the same
+  visual length as 1 m, so the ruler stays a comparable size.
+
 ### Fixed
 
 - Köppen and frost lookups now resolve correctly for every land cell.

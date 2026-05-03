@@ -38,6 +38,13 @@
   border-color: var(--color-garden-green);
 }
 
+.location__hint {
+  color: var(--color-text-muted);
+  font-size: var(--size-caption);
+  margin-top: var(--space-1);
+  font-weight: var(--weight-regular);
+}
+
 .location__error {
   color: var(--color-status-impossible);
   font-weight: var(--weight-medium);

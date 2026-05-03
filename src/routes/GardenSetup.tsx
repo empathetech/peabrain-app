@@ -21,7 +21,7 @@ export default function GardenSetup() {
   const [name, setName] = useState('')
   const [units, setUnits] = useState<'metric' | 'imperial'>('metric')
   const [width, setWidth] = useState('')
-  const [height, setHeight] = useState('')
+  const [length, setLength] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -41,9 +41,9 @@ export default function GardenSetup() {
       return
     }
     const w = Number(width)
-    const h = Number(height)
-    if (!Number.isFinite(w) || w <= 0 || !Number.isFinite(h) || h <= 0) {
-      setError('Width and height should be positive numbers.')
+    const l = Number(length)
+    if (!Number.isFinite(w) || w <= 0 || !Number.isFinite(l) || l <= 0) {
+      setError('Width and length should be positive numbers.')
       return
     }
 
@@ -58,7 +58,7 @@ export default function GardenSetup() {
         units,
         bounds: {
           widthCm: toCm(w, units),
-          heightCm: toCm(h, units),
+          lengthCm: toCm(l, units),
         },
         createdAt: now,
         updatedAt: now,
@@ -83,7 +83,8 @@ export default function GardenSetup() {
       <h1>Set up your garden</h1>
       <p className="garden-setup__intro">
         We&rsquo;ve got your zone. Now tell us about the patch you&rsquo;ll be
-        planting in.
+        planting in &mdash; it&rsquo;s a top-down footprint, so just the two
+        dimensions.
       </p>
 
       <form onSubmit={handleSubmit} className="garden-setup__form" noValidate>
@@ -137,14 +138,14 @@ export default function GardenSetup() {
             />
           </label>
           <label className="garden-setup__field">
-            <span>Height ({unitLabel})</span>
+            <span>Length ({unitLabel})</span>
             <input
               type="number"
               inputMode="decimal"
               min="0"
               step="0.1"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              value={length}
+              onChange={(e) => setLength(e.target.value)}
               placeholder="4"
               required
             />
