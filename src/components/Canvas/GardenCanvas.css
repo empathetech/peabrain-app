@@ -1,0 +1,55 @@
+.garden-canvas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.garden-canvas__toolbar {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.garden-canvas__toolbar button {
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  padding: var(--space-1) var(--space-3);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-strong);
+  cursor: pointer;
+}
+
+.garden-canvas__toolbar button:hover,
+.garden-canvas__toolbar button:focus-visible {
+  border-color: var(--color-garden-green);
+  color: var(--color-garden-green);
+}
+
+.garden-canvas__svg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--color-bg);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.garden-canvas__svg:active {
+  cursor: grabbing;
+}
+
+.garden-canvas__svg:focus-visible {
+  outline: 2px solid var(--color-garden-green);
+  outline-offset: 2px;
+}

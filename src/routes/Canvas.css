@@ -1,0 +1,24 @@
+.canvas-route {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.canvas-route__header {
+  margin-bottom: var(--space-4);
+}
+
+.canvas-route__header h1 {
+  margin-bottom: var(--space-1);
+}
+
+.canvas-route__meta {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.canvas-route__hint {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--size-caption);
+}
