@@ -14,7 +14,16 @@ vi.mock('react-router-dom', async () => {
 
 const getMock = vi.fn()
 vi.mock('../db/schema', () => ({
-  db: { gardens: { get: (id: string) => getMock(id) } },
+  db: {
+    gardens: { get: (id: string) => getMock(id) },
+    // GardenCanvas hydrates surfaces on mount; stub the chain so it
+    // resolves to an empty list without needing a real IndexedDB.
+    surfaces: {
+      where: () => ({
+        equals: () => ({ toArray: () => Promise.resolve([]) }),
+      }),
+    },
+  },
 }))
 
 const getActiveGardenIdMock = vi.fn()

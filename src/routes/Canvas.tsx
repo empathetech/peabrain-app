@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import GardenCanvas from '../components/Canvas/GardenCanvas'
 import { db } from '../db/schema'
 import { describeKoppen } from '../db/koppen-meta'
-import { getActiveGardenId } from '../services/active-garden'
+import {
+  getActiveGardenId,
+  resetAllUserData,
+} from '../services/active-garden'
 import type { Garden } from '../db/types'
 import './Canvas.css'
 
@@ -64,15 +67,37 @@ export default function Canvas() {
   }
   if (!garden) return null
 
+  async function handleStartOver() {
+    const ok = window.confirm(
+      'Start over? This deletes your garden, surfaces, and any plantings from this browser. There is no undo.',
+    )
+    if (!ok) return
+    await resetAllUserData()
+    // Hard reload so the in-memory Dexie connection releases and the
+    // app comes back up against a fresh DB.
+    window.location.assign('/')
+  }
+
   return (
     <main id="main" className="canvas-route">
       <header className="canvas-route__header">
-        <h1>{garden.name}</h1>
-        <p className="canvas-route__meta">
-          {garden.location.label} &middot;{' '}
-          <strong>{garden.location.koppenCode}</strong>{' '}
-          {describeKoppen(garden.location.koppenCode)}
-        </p>
+        <div className="canvas-route__title-row">
+          <div>
+            <h1>{garden.name}</h1>
+            <p className="canvas-route__meta">
+              {garden.location.label} &middot;{' '}
+              <strong>{garden.location.koppenCode}</strong>{' '}
+              {describeKoppen(garden.location.koppenCode)}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="canvas-route__start-over"
+            onClick={handleStartOver}
+          >
+            Start over
+          </button>
+        </div>
       </header>
       <GardenCanvas key={garden.id} garden={garden} />
       <p className="canvas-route__hint">

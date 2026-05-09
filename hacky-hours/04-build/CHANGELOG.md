@@ -5,7 +5,78 @@ Shipped work, grouped by release. Items move here from
 
 ## v0.1.0 — Unreleased
 
-_MVP — Foundation slice complete; Onboarding slice in progress._
+_MVP — Foundation + Onboarding shipped; Layout planner slice in flight._
+
+### Added
+
+- **Layout planner** for the empty Canvas. Users can add, place, size, edit,
+  move, and remove growing surfaces inside their garden plot.
+  - Three surface types per `STYLE_GUIDE.md`: in-ground (irregular wobbly
+    edge via SVG `feTurbulence` + `feDisplacementMap` filter, soil fill,
+    no border), raised bed (wood-tone border, soil-mid fill, inset shadow
+    for depth), and planter (terracotta-bordered circle with inner rim).
+    Trellis is intentionally deferred to V1.
+  - **Drag-to-draw** placement: click a tool, drag on canvas to draw at
+    exactly the size you want, release to commit. Click without drag drops
+    a default-sized surface at the click point. Stays in placement mode
+    after each drop so consecutive surfaces don't require trips back to
+    the toolbar. Escape exits.
+  - **Click on existing surface in placement mode selects it** rather
+    than dropping a new one underneath. Click on empty canvas with a
+    selection deselects (instead of drawing).
+  - **Cmd/Ctrl+D duplicates** the selected surface, offset 20 cm. Chains
+    cleanly to fan out a row of beds.
+  - **Pointer drag a surface** to move it, with a 4 px click/drag
+    threshold so quick clicks still activate the editor. **Eight resize
+    handles** on rectangular surfaces (corners + edge midpoints, each
+    with the right `cursor`); **one** on planters for diameter. Bounds-
+    clamped both ways with a 5 cm minimum dimension.
+  - **Keyboard parity:** Tab cycles surfaces; Arrow nudges 1 cm
+    (Shift+Arrow = 10 cm); Alt+Arrow resizes (Alt+Shift+Arrow = 10 cm);
+    Enter opens the editor; Delete/Backspace opens the delete confirm.
+  - **Edit popover** anchored to the selected surface (above if room,
+    below otherwise; horizontally centred and clamped to the viewport;
+    follows the surface during pan/zoom/move/resize via `getScreenCTM`).
+    Captures name (optional), dimensions in the user's units (with live
+    sync from drag-resize), depth in cm (raised bed + planter only), and
+    acquisition (already have it / build / buy). Save persists and keeps
+    the popover open; Cancel/Escape closes.
+  - **Delete confirmation** lives inside the popover (replaces the form
+    view in place) rather than as a separate above-canvas pill — keeps
+    the destructive action spatially grounded to the surface it'll
+    affect. `role="alertdialog"` with auto-focused safe default.
+  - **Empty-state copy** per `STYLE_GUIDE.md`, hidden once any surface
+    exists.
+  - **Surface CRUD module** (`src/db/surfaces.ts`) is the single seam
+    over the Dexie `surfaces` table for the canvas plus future plant-
+    placement features. Tested against real Dexie via `fake-indexeddb`.
+
+- **Zoom + pan redesign** for the canvas, modelled on Figma / design-tool
+  conventions:
+  - Plain wheel / two-finger scroll **pans** the canvas (used to zoom and
+    kidnap every page scroll that drifted over the canvas).
+  - Cmd/Ctrl + wheel **zooms toward the cursor**. Trackpad pinch follows
+    the same path because Chrome synthesizes pinch as wheel + ctrlKey.
+  - **Spacebar held** = pan tool (Photoshop convention). Cursor → grab;
+    drag anywhere — even on a surface — pans. Release returns to the
+    previous tool.
+  - Toolbar now shows a **live zoom percentage** (click → fit to view).
+    Cmd/Ctrl+0 is the keyboard equivalent.
+
+- **Start over** affordance in the canvas header (subtle button, turns
+  red on hover/focus) — wipes localStorage, sessionStorage, and the
+  Dexie database, then reloads to Welcome. Settings page (V1) will host
+  the polished version.
+
+- `--color-wood` and `--color-soil-mid` design tokens added to
+  `index.css` for the new surface treatments.
+
+- ESLint config gained the `argsIgnorePattern: '^_'` rule so signature-
+  required-but-unused params (e.g. resize-handle table entries) don't
+  trip lint.
+
+- `fake-indexeddb` (ISC) as a dev dependency to exercise the real Dexie
+  code path in component tests.
 
 ### Changed
 

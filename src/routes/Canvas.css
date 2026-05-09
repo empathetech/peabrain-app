@@ -8,8 +8,34 @@
   margin-bottom: var(--space-4);
 }
 
+.canvas-route__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
 .canvas-route__header h1 {
   margin-bottom: var(--space-1);
+}
+
+.canvas-route__start-over {
+  flex-shrink: 0;
+  min-height: var(--target-min);
+  padding: var(--space-1) var(--space-3);
+  font: inherit;
+  font-size: var(--size-caption);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.canvas-route__start-over:hover,
+.canvas-route__start-over:focus-visible {
+  border-color: var(--color-status-impossible);
+  color: var(--color-status-impossible);
 }
 
 .canvas-route__meta {
