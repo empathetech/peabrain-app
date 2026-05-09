@@ -7,6 +7,14 @@ work moves to [CHANGELOG.md](./CHANGELOG.md).
 
 ---
 
-_Onboarding slice is complete. The next slice (Layout planner / Plant DB /
-Plantings / Data export / Pages + trust / Settings) gets queued after the
-Onboarding UI PR merges._
+_Layout planner slice is up for review on `feat/layout-planner`. The next
+slice (Plant DB authoring + plant-recommendation panel, Plantings,
+JSON import/export, Pages + trust, Settings) gets queued after that PR
+merges._
+
+## Carried follow-ups
+
+- **Axe + tab-order accessibility checks** in CI. Vitest + jsdom doesn't
+  have a stable axe runner; pick a tool (axe-core in Playwright? jest-axe?)
+  and wire it into the test pipeline. Manual pre-merge browser walkthrough
+  covers it for now.

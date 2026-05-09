@@ -26,3 +26,21 @@ export function clearActiveGardenId(): void {
     // ignore
   }
 }
+
+// Wipe everything peabrain has stored in this browser: the active-garden
+// pointer, the Dexie database, and the onboarding-draft sessionStorage.
+// The Settings page (V1) will host the polished version of this.
+export async function resetAllUserData(): Promise<void> {
+  try {
+    window.localStorage.removeItem(KEY)
+    window.sessionStorage.removeItem('peabrain.onboarding-draft')
+  } catch {
+    // ignore
+  }
+  await new Promise<void>((resolve) => {
+    const req = indexedDB.deleteDatabase('peabrain')
+    req.onsuccess = () => resolve()
+    req.onerror = () => resolve()
+    req.onblocked = () => resolve()
+  })
+}

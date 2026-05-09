@@ -1,0 +1,109 @@
+.surface-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.surface-form__heading {
+  margin: 0;
+  font-size: var(--font-size-lg, 1.125rem);
+}
+
+.surface-form__type {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.surface-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.surface-form__field input[type='text'],
+.surface-form__field input[type='number'] {
+  /* `min-width: 0` lets the input shrink inside its grid cell instead of
+     ballooning past the popover edge. `width: 100%` makes it fill the
+     cell exactly. */
+  width: 100%;
+  min-width: 0;
+  min-height: var(--target-min);
+  padding: var(--space-1) var(--space-2);
+  font: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text-strong);
+}
+
+.surface-form__field input:focus-visible {
+  outline: 2px solid var(--color-garden-green);
+  outline-offset: 1px;
+}
+
+.surface-form__dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  /* `minmax(0, 1fr)` would do the same — the explicit min-width: 0 below
+     covers it. */
+}
+
+.surface-form__dims > .surface-form__field {
+  min-width: 0;
+}
+
+.surface-form__acquisition {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.surface-form__acquisition legend {
+  padding: 0 var(--space-1);
+  font-weight: var(--weight-semibold);
+}
+
+.surface-form__acquisition label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+}
+
+.surface-form__error {
+  margin: 0;
+  color: var(--color-impossible, var(--color-status-impossible));
+}
+
+.surface-form__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.surface-form__delete {
+  /* Push Save / Cancel to the right; Delete sits on the far left so it
+     never wraps awkwardly and stays out of the primary action's path. */
+  margin-right: auto;
+  min-height: var(--target-min);
+  padding: var(--space-1) var(--space-3);
+  font: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-status-impossible);
+  cursor: pointer;
+}
+
+.surface-form__delete:hover,
+.surface-form__delete:focus-visible {
+  border-color: var(--color-status-impossible);
+}

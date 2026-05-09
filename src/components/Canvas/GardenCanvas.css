@@ -10,13 +10,22 @@
 
 .garden-canvas__toolbar {
   display: flex;
-  gap: var(--space-2);
+  flex-wrap: wrap;
+  gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
 }
 
+.garden-canvas__tool-group {
+  display: flex;
+  gap: var(--space-2);
+}
+
 .garden-canvas__toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   min-width: var(--target-min);
   min-height: var(--target-min);
   padding: var(--space-1) var(--space-3);
@@ -35,6 +44,28 @@
   color: var(--color-garden-green);
 }
 
+.garden-canvas__tool[aria-pressed='true'] {
+  background: var(--color-garden-green);
+  border-color: var(--color-garden-green);
+  color: var(--color-bg);
+}
+
+.garden-canvas__tool-icon {
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.garden-canvas__status {
+  min-height: 1.5em;
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-sm, 0.9em);
+  color: var(--color-text-muted);
+  /* Long placement-mode hints used to overflow horizontally and clip out
+     of view; let them wrap inside the canvas frame instead. */
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .garden-canvas__svg {
   display: block;
   width: 100%;
@@ -47,6 +78,53 @@
 
 .garden-canvas__svg:active {
   cursor: grabbing;
+}
+
+.garden-canvas__svg--placing {
+  cursor: crosshair;
+}
+
+.garden-canvas__svg--panning,
+.garden-canvas__svg--panning:active {
+  cursor: grab;
+}
+
+.garden-canvas__svg--panning:active {
+  cursor: grabbing;
+}
+
+.garden-canvas__zoom-readout {
+  font-variant-numeric: tabular-nums;
+  min-width: 4rem;
+  justify-content: center;
+}
+
+.surface-shape--interactive {
+  cursor: grab;
+}
+
+.surface-shape--interactive:active {
+  cursor: grabbing;
+}
+
+.surface-shape--interactive:focus {
+  outline: none;
+}
+
+.surface-shape--interactive:focus-visible rect,
+.surface-shape--interactive:focus-visible circle {
+  /* Focus ring is the SelectionOutline rendered by SurfaceShape; give the
+     focused-but-unselected case a subtle outline so keyboard users see
+     focus before they activate. */
+  filter: drop-shadow(0 0 4px var(--color-garden-green));
+}
+
+.garden-canvas__empty {
+  margin: 0;
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-style: italic;
 }
 
 .garden-canvas__svg:focus-visible {

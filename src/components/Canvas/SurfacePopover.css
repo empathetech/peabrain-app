@@ -1,0 +1,45 @@
+.surface-popover {
+  position: fixed;
+  z-index: 50;
+  /* Hide until we have a measured position so the user doesn't see a flash
+     of the popover at top-left before useLayoutEffect places it. */
+  top: -9999px;
+  left: -9999px;
+  width: min(24rem, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.32);
+}
+
+.surface-popover--placed {
+  /* Position is set inline once measured. */
+}
+
+/* Small visual tail to point at the surface. We render it via ::after so
+   the form contents stay self-contained. */
+.surface-popover::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transform: rotate(45deg);
+  left: 50%;
+  margin-left: -6px;
+}
+
+.surface-popover--above::after {
+  bottom: -7px;
+  border-top: none;
+  border-left: none;
+}
+
+.surface-popover--below::after {
+  top: -7px;
+  border-bottom: none;
+  border-right: none;
+}
